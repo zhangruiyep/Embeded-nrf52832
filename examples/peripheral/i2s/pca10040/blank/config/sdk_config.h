@@ -129,18 +129,364 @@
 #define I2S_SDOUT_PIN 27
 #endif
 
+//==========================================================
+// <h> SPI_CONFIGURATION - Spi configuration
+
+//==========================================================
+// <o> SPI_SCK_PIN  - Pin number
+ 
+// <0=> 0 (P0.0) 
+// <1=> 1 (P0.1) 
+// <2=> 2 (P0.2) 
+// <3=> 3 (P0.3) 
+// <4=> 4 (P0.4) 
+// <5=> 5 (P0.5) 
+// <6=> 6 (P0.6) 
+// <7=> 7 (P0.7) 
+// <8=> 8 (P0.8) 
+// <9=> 9 (P0.9) 
+// <10=> 10 (P0.10) 
+// <11=> 11 (P0.11) 
+// <12=> 12 (P0.12) 
+// <13=> 13 (P0.13) 
+// <14=> 14 (P0.14) 
+// <15=> 15 (P0.15) 
+// <16=> 16 (P0.16) 
+// <17=> 17 (P0.17) 
+// <18=> 18 (P0.18) 
+// <19=> 19 (P0.19) 
+// <20=> 20 (P0.20) 
+// <21=> 21 (P0.21) 
+// <22=> 22 (P0.22) 
+// <23=> 23 (P0.23) 
+// <24=> 24 (P0.24) 
+// <25=> 25 (P0.25) 
+// <26=> 26 (P0.26) 
+// <27=> 27 (P0.27) 
+// <28=> 28 (P0.28) 
+// <29=> 29 (P0.29) 
+// <30=> 30 (P0.30) 
+// <31=> 31 (P0.31) 
+// <32=> 32 (P1.0) 
+// <33=> 33 (P1.1) 
+// <34=> 34 (P1.2) 
+// <35=> 35 (P1.3) 
+// <36=> 36 (P1.4) 
+// <37=> 37 (P1.5) 
+// <38=> 38 (P1.6) 
+// <39=> 39 (P1.7) 
+// <40=> 40 (P1.8) 
+// <41=> 41 (P1.9) 
+// <42=> 42 (P1.10) 
+// <43=> 43 (P1.11) 
+// <44=> 44 (P1.12) 
+// <45=> 45 (P1.13) 
+// <46=> 46 (P1.14) 
+// <47=> 47 (P1.15) 
+// <4294967295=> Not connected 
+
+#ifndef SPI_SCK_PIN
+#define SPI_SCK_PIN 27
+#endif
+
+// <o> SPI_MISO_PIN  - Pin number
+ 
+// <0=> 0 (P0.0) 
+// <1=> 1 (P0.1) 
+// <2=> 2 (P0.2) 
+// <3=> 3 (P0.3) 
+// <4=> 4 (P0.4) 
+// <5=> 5 (P0.5) 
+// <6=> 6 (P0.6) 
+// <7=> 7 (P0.7) 
+// <8=> 8 (P0.8) 
+// <9=> 9 (P0.9) 
+// <10=> 10 (P0.10) 
+// <11=> 11 (P0.11) 
+// <12=> 12 (P0.12) 
+// <13=> 13 (P0.13) 
+// <14=> 14 (P0.14) 
+// <15=> 15 (P0.15) 
+// <16=> 16 (P0.16) 
+// <17=> 17 (P0.17) 
+// <18=> 18 (P0.18) 
+// <19=> 19 (P0.19) 
+// <20=> 20 (P0.20) 
+// <21=> 21 (P0.21) 
+// <22=> 22 (P0.22) 
+// <23=> 23 (P0.23) 
+// <24=> 24 (P0.24) 
+// <25=> 25 (P0.25) 
+// <26=> 26 (P0.26) 
+// <27=> 27 (P0.27) 
+// <28=> 28 (P0.28) 
+// <29=> 29 (P0.29) 
+// <30=> 30 (P0.30) 
+// <31=> 31 (P0.31) 
+// <32=> 32 (P1.0) 
+// <33=> 33 (P1.1) 
+// <34=> 34 (P1.2) 
+// <35=> 35 (P1.3) 
+// <36=> 36 (P1.4) 
+// <37=> 37 (P1.5) 
+// <38=> 38 (P1.6) 
+// <39=> 39 (P1.7) 
+// <40=> 40 (P1.8) 
+// <41=> 41 (P1.9) 
+// <42=> 42 (P1.10) 
+// <43=> 43 (P1.11) 
+// <44=> 44 (P1.12) 
+// <45=> 45 (P1.13) 
+// <46=> 46 (P1.14) 
+// <47=> 47 (P1.15) 
+// <4294967295=> Not connected 
+
+#ifndef SPI_MISO_PIN
+#define SPI_MISO_PIN 25
+#endif
+
+// <o> SPI_MOSI_PIN  - Pin number
+ 
+// <0=> 0 (P0.0) 
+// <1=> 1 (P0.1) 
+// <2=> 2 (P0.2) 
+// <3=> 3 (P0.3) 
+// <4=> 4 (P0.4) 
+// <5=> 5 (P0.5) 
+// <6=> 6 (P0.6) 
+// <7=> 7 (P0.7) 
+// <8=> 8 (P0.8) 
+// <9=> 9 (P0.9) 
+// <10=> 10 (P0.10) 
+// <11=> 11 (P0.11) 
+// <12=> 12 (P0.12) 
+// <13=> 13 (P0.13) 
+// <14=> 14 (P0.14) 
+// <15=> 15 (P0.15) 
+// <16=> 16 (P0.16) 
+// <17=> 17 (P0.17) 
+// <18=> 18 (P0.18) 
+// <19=> 19 (P0.19) 
+// <20=> 20 (P0.20) 
+// <21=> 21 (P0.21) 
+// <22=> 22 (P0.22) 
+// <23=> 23 (P0.23) 
+// <24=> 24 (P0.24) 
+// <25=> 25 (P0.25) 
+// <26=> 26 (P0.26) 
+// <27=> 27 (P0.27) 
+// <28=> 28 (P0.28) 
+// <29=> 29 (P0.29) 
+// <30=> 30 (P0.30) 
+// <31=> 31 (P0.31) 
+// <32=> 32 (P1.0) 
+// <33=> 33 (P1.1) 
+// <34=> 34 (P1.2) 
+// <35=> 35 (P1.3) 
+// <36=> 36 (P1.4) 
+// <37=> 37 (P1.5) 
+// <38=> 38 (P1.6) 
+// <39=> 39 (P1.7) 
+// <40=> 40 (P1.8) 
+// <41=> 41 (P1.9) 
+// <42=> 42 (P1.10) 
+// <43=> 43 (P1.11) 
+// <44=> 44 (P1.12) 
+// <45=> 45 (P1.13) 
+// <46=> 46 (P1.14) 
+// <47=> 47 (P1.15) 
+// <4294967295=> Not connected 
+
+#ifndef SPI_MOSI_PIN
+#define SPI_MOSI_PIN 26
+#endif
+
+// <o> SPI_SS_PIN  - Pin number
+ 
+// <0=> 0 (P0.0) 
+// <1=> 1 (P0.1) 
+// <2=> 2 (P0.2) 
+// <3=> 3 (P0.3) 
+// <4=> 4 (P0.4) 
+// <5=> 5 (P0.5) 
+// <6=> 6 (P0.6) 
+// <7=> 7 (P0.7) 
+// <8=> 8 (P0.8) 
+// <9=> 9 (P0.9) 
+// <10=> 10 (P0.10) 
+// <11=> 11 (P0.11) 
+// <12=> 12 (P0.12) 
+// <13=> 13 (P0.13) 
+// <14=> 14 (P0.14) 
+// <15=> 15 (P0.15) 
+// <16=> 16 (P0.16) 
+// <17=> 17 (P0.17) 
+// <18=> 18 (P0.18) 
+// <19=> 19 (P0.19) 
+// <20=> 20 (P0.20) 
+// <21=> 21 (P0.21) 
+// <22=> 22 (P0.22) 
+// <23=> 23 (P0.23) 
+// <24=> 24 (P0.24) 
+// <25=> 25 (P0.25) 
+// <26=> 26 (P0.26) 
+// <27=> 27 (P0.27) 
+// <28=> 28 (P0.28) 
+// <29=> 29 (P0.29) 
+// <30=> 30 (P0.30) 
+// <31=> 31 (P0.31) 
+// <32=> 32 (P1.0) 
+// <33=> 33 (P1.1) 
+// <34=> 34 (P1.2) 
+// <35=> 35 (P1.3) 
+// <36=> 36 (P1.4) 
+// <37=> 37 (P1.5) 
+// <38=> 38 (P1.6) 
+// <39=> 39 (P1.7) 
+// <40=> 40 (P1.8) 
+// <41=> 41 (P1.9) 
+// <42=> 42 (P1.10) 
+// <43=> 43 (P1.11) 
+// <44=> 44 (P1.12) 
+// <45=> 45 (P1.13) 
+// <46=> 46 (P1.14) 
+// <47=> 47 (P1.15) 
+// <4294967295=> Not connected 
+
+#ifndef SPI_SS_PIN
+#define SPI_SS_PIN 28
+#endif
+
+// <o> SPI_IRQ_PRIORITY  - Interrupt priority
+ 
+
+// <i> Priorities 0,2 (nRF51) and 0,1,4,5 (nRF52) are reserved for SoftDevice
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef SPI_IRQ_PRIORITY
+#define SPI_IRQ_PRIORITY 6
+#endif
+
+// </h> 
+//==========================================================
+
 // </h> 
 //==========================================================
 
 // <h> nRF_Drivers 
 
 //==========================================================
-// <e> I2S_ENABLED - nrf_drv_i2s - I2S peripheral driver - legacy layer
+// <e> GPIOTE_ENABLED - nrf_drv_gpiote - GPIOTE peripheral driver - legacy layer
 //==========================================================
-#ifndef I2S_ENABLED
-#define I2S_ENABLED 1
+#ifndef GPIOTE_ENABLED
+#define GPIOTE_ENABLED 1
 #endif
-// <o> I2S_CONFIG_SCK_PIN - SCK pin  <0-31> 
+// <o> GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input pins 
+#ifndef GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS
+#define GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS 4
+#endif
+
+// <o> GPIOTE_CONFIG_IRQ_PRIORITY  - Interrupt priority
+ 
+
+// <i> Priorities 0,2 (nRF51) and 0,1,4,5 (nRF52) are reserved for SoftDevice
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef GPIOTE_CONFIG_IRQ_PRIORITY
+#define GPIOTE_CONFIG_IRQ_PRIORITY 6
+#endif
+
+// </e>
+
+// <e> NRFX_GPIOTE_ENABLED - nrfx_gpiote - GPIOTE peripheral driver
+//==========================================================
+#ifndef NRFX_GPIOTE_ENABLED
+#define NRFX_GPIOTE_ENABLED 1
+#endif
+// <o> NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input pins 
+#ifndef NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS
+#define NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS 1
+#endif
+
+// <o> NRFX_GPIOTE_CONFIG_IRQ_PRIORITY  - Interrupt priority
+ 
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef NRFX_GPIOTE_CONFIG_IRQ_PRIORITY
+#define NRFX_GPIOTE_CONFIG_IRQ_PRIORITY 6
+#endif
+
+// <e> NRFX_GPIOTE_CONFIG_LOG_ENABLED - Enables logging in the module.
+//==========================================================
+#ifndef NRFX_GPIOTE_CONFIG_LOG_ENABLED
+#define NRFX_GPIOTE_CONFIG_LOG_ENABLED 0
+#endif
+// <o> NRFX_GPIOTE_CONFIG_LOG_LEVEL  - Default Severity level
+ 
+// <0=> Off 
+// <1=> Error 
+// <2=> Warning 
+// <3=> Info 
+// <4=> Debug 
+
+#ifndef NRFX_GPIOTE_CONFIG_LOG_LEVEL
+#define NRFX_GPIOTE_CONFIG_LOG_LEVEL 3
+#endif
+
+// <o> NRFX_GPIOTE_CONFIG_INFO_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef NRFX_GPIOTE_CONFIG_INFO_COLOR
+#define NRFX_GPIOTE_CONFIG_INFO_COLOR 0
+#endif
+
+// <o> NRFX_GPIOTE_CONFIG_DEBUG_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef NRFX_GPIOTE_CONFIG_DEBUG_COLOR
+#define NRFX_GPIOTE_CONFIG_DEBUG_COLOR 0
+#endif
+
+// </e>
 
 
 #ifndef I2S_CONFIG_SCK_PIN
@@ -620,6 +966,228 @@
 
 // </e>
 
+// <e> NRFX_SPIM_ENABLED - nrfx_spim - SPIM peripheral driver
+//==========================================================
+#ifndef NRFX_SPIM_ENABLED
+#define NRFX_SPIM_ENABLED 1
+#endif
+// <q> NRFX_SPIM0_ENABLED  - Enable SPIM0 instance
+ 
+
+#ifndef NRFX_SPIM0_ENABLED
+#define NRFX_SPIM0_ENABLED 0
+#endif
+
+// <q> NRFX_SPIM1_ENABLED  - Enable SPIM1 instance
+ 
+
+#ifndef NRFX_SPIM1_ENABLED
+#define NRFX_SPIM1_ENABLED 0
+#endif
+
+// <q> NRFX_SPIM2_ENABLED  - Enable SPIM2 instance
+ 
+
+#ifndef NRFX_SPIM2_ENABLED
+#define NRFX_SPIM2_ENABLED 0
+#endif
+
+// <o> NRFX_SPIM_MISO_PULL_CFG  - MISO pin pull configuration.
+ 
+// <0=> NRF_GPIO_PIN_NOPULL 
+// <1=> NRF_GPIO_PIN_PULLDOWN 
+// <3=> NRF_GPIO_PIN_PULLUP 
+
+#ifndef NRFX_SPIM_MISO_PULL_CFG
+#define NRFX_SPIM_MISO_PULL_CFG 1
+#endif
+
+// <o> NRFX_SPIM_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority
+ 
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef NRFX_SPIM_DEFAULT_CONFIG_IRQ_PRIORITY
+#define NRFX_SPIM_DEFAULT_CONFIG_IRQ_PRIORITY 6
+#endif
+
+// <e> NRFX_SPIM_CONFIG_LOG_ENABLED - Enables logging in the module.
+//==========================================================
+#ifndef NRFX_SPIM_CONFIG_LOG_ENABLED
+#define NRFX_SPIM_CONFIG_LOG_ENABLED 0
+#endif
+// <o> NRFX_SPIM_CONFIG_LOG_LEVEL  - Default Severity level
+ 
+// <0=> Off 
+// <1=> Error 
+// <2=> Warning 
+// <3=> Info 
+// <4=> Debug 
+
+#ifndef NRFX_SPIM_CONFIG_LOG_LEVEL
+#define NRFX_SPIM_CONFIG_LOG_LEVEL 3
+#endif
+
+// <o> NRFX_SPIM_CONFIG_INFO_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef NRFX_SPIM_CONFIG_INFO_COLOR
+#define NRFX_SPIM_CONFIG_INFO_COLOR 0
+#endif
+
+// <o> NRFX_SPIM_CONFIG_DEBUG_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef NRFX_SPIM_CONFIG_DEBUG_COLOR
+#define NRFX_SPIM_CONFIG_DEBUG_COLOR 0
+#endif
+
+// </e>
+
+// <q> NRFX_SPIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED  - Enables nRF52 anomaly 109 workaround for SPIM.
+ 
+
+// <i> The workaround uses interrupts to wake up the CPU by catching
+// <i> a start event of zero-length transmission to start the clock. This 
+// <i> ensures that the DMA transfer will be executed without issues and
+// <i> that the proper transfer will be started. See more in the Errata 
+// <i> document or Anomaly 109 Addendum located at 
+// <i> https://infocenter.nordicsemi.com/
+
+#ifndef NRFX_SPIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED
+#define NRFX_SPIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED 0
+#endif
+
+// </e>
+
+// <e> NRFX_SPI_ENABLED - nrfx_spi - SPI peripheral driver
+//==========================================================
+#ifndef NRFX_SPI_ENABLED
+#define NRFX_SPI_ENABLED 1
+#endif
+// <q> NRFX_SPI0_ENABLED  - Enable SPI0 instance
+ 
+
+#ifndef NRFX_SPI0_ENABLED
+#define NRFX_SPI0_ENABLED 0
+#endif
+
+// <q> NRFX_SPI1_ENABLED  - Enable SPI1 instance
+ 
+
+#ifndef NRFX_SPI1_ENABLED
+#define NRFX_SPI1_ENABLED 0
+#endif
+
+// <q> NRFX_SPI2_ENABLED  - Enable SPI2 instance
+ 
+
+#ifndef NRFX_SPI2_ENABLED
+#define NRFX_SPI2_ENABLED 0
+#endif
+
+// <o> NRFX_SPI_MISO_PULL_CFG  - MISO pin pull configuration.
+ 
+// <0=> NRF_GPIO_PIN_NOPULL 
+// <1=> NRF_GPIO_PIN_PULLDOWN 
+// <3=> NRF_GPIO_PIN_PULLUP 
+
+#ifndef NRFX_SPI_MISO_PULL_CFG
+#define NRFX_SPI_MISO_PULL_CFG 1
+#endif
+
+// <o> NRFX_SPI_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority
+ 
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef NRFX_SPI_DEFAULT_CONFIG_IRQ_PRIORITY
+#define NRFX_SPI_DEFAULT_CONFIG_IRQ_PRIORITY 6
+#endif
+
+// <e> NRFX_SPI_CONFIG_LOG_ENABLED - Enables logging in the module.
+//==========================================================
+#ifndef NRFX_SPI_CONFIG_LOG_ENABLED
+#define NRFX_SPI_CONFIG_LOG_ENABLED 0
+#endif
+// <o> NRFX_SPI_CONFIG_LOG_LEVEL  - Default Severity level
+ 
+// <0=> Off 
+// <1=> Error 
+// <2=> Warning 
+// <3=> Info 
+// <4=> Debug 
+
+#ifndef NRFX_SPI_CONFIG_LOG_LEVEL
+#define NRFX_SPI_CONFIG_LOG_LEVEL 3
+#endif
+
+// <o> NRFX_SPI_CONFIG_INFO_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef NRFX_SPI_CONFIG_INFO_COLOR
+#define NRFX_SPI_CONFIG_INFO_COLOR 0
+#endif
+
+// <o> NRFX_SPI_CONFIG_DEBUG_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef NRFX_SPI_CONFIG_DEBUG_COLOR
+#define NRFX_SPI_CONFIG_DEBUG_COLOR 0
+#endif
+
+// </e>
+
+// </e>
+
 // <e> NRFX_UARTE_ENABLED - nrfx_uarte - UARTE peripheral driver
 //==========================================================
 #ifndef NRFX_UARTE_ENABLED
@@ -862,6 +1430,96 @@
 
 // </e>
 
+// <e> SPI_ENABLED - nrf_drv_spi - SPI/SPIM peripheral driver - legacy layer
+//==========================================================
+#ifndef SPI_ENABLED
+#define SPI_ENABLED 1
+#endif
+// <o> SPI_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority
+ 
+
+// <i> Priorities 0,2 (nRF51) and 0,1,4,5 (nRF52) are reserved for SoftDevice
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef SPI_DEFAULT_CONFIG_IRQ_PRIORITY
+#define SPI_DEFAULT_CONFIG_IRQ_PRIORITY 6
+#endif
+
+// <o> NRF_SPI_DRV_MISO_PULLUP_CFG  - MISO PIN pull-up configuration.
+ 
+// <0=> NRF_GPIO_PIN_NOPULL 
+// <1=> NRF_GPIO_PIN_PULLDOWN 
+// <3=> NRF_GPIO_PIN_PULLUP 
+
+#ifndef NRF_SPI_DRV_MISO_PULLUP_CFG
+#define NRF_SPI_DRV_MISO_PULLUP_CFG 1
+#endif
+
+// <e> SPI0_ENABLED - Enable SPI0 instance
+//==========================================================
+#ifndef SPI0_ENABLED
+#define SPI0_ENABLED 1
+#endif
+// <q> SPI0_USE_EASY_DMA  - Use EasyDMA
+ 
+
+#ifndef SPI0_USE_EASY_DMA
+#define SPI0_USE_EASY_DMA 1
+#endif
+
+// </e>
+
+// <e> SPI1_ENABLED - Enable SPI1 instance
+//==========================================================
+#ifndef SPI1_ENABLED
+#define SPI1_ENABLED 0
+#endif
+// <q> SPI1_USE_EASY_DMA  - Use EasyDMA
+ 
+
+#ifndef SPI1_USE_EASY_DMA
+#define SPI1_USE_EASY_DMA 1
+#endif
+
+// </e>
+
+// <e> SPI2_ENABLED - Enable SPI2 instance
+//==========================================================
+#ifndef SPI2_ENABLED
+#define SPI2_ENABLED 0
+#endif
+// <q> SPI2_USE_EASY_DMA  - Use EasyDMA
+ 
+
+#ifndef SPI2_USE_EASY_DMA
+#define SPI2_USE_EASY_DMA 1
+#endif
+
+// </e>
+
+// <q> SPIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED  - Enables nRF52 anomaly 109 workaround for SPIM.
+ 
+
+// <i> The workaround uses interrupts to wake up the CPU by catching
+// <i> a start event of zero-length transmission to start the clock. This 
+// <i> ensures that the DMA transfer will be executed without issues and
+// <i> that the proper transfer will be started. See more in the Errata 
+// <i> document or Anomaly 109 Addendum located at 
+// <i> https://infocenter.nordicsemi.com/
+
+#ifndef SPIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED
+#define SPIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED 0
+#endif
+
+// </e>
+
 // <e> UART_ENABLED - nrf_drv_uart - UART/UARTE peripheral driver - legacy layer
 //==========================================================
 #ifndef UART_ENABLED
@@ -961,6 +1619,122 @@
 // <h> nRF_Libraries 
 
 //==========================================================
+// <e> APP_SCHEDULER_ENABLED - app_scheduler - Events scheduler
+//==========================================================
+#ifndef APP_SCHEDULER_ENABLED
+#define APP_SCHEDULER_ENABLED 1
+#endif
+// <q> APP_SCHEDULER_WITH_PAUSE  - Enabling pause feature
+ 
+
+#ifndef APP_SCHEDULER_WITH_PAUSE
+#define APP_SCHEDULER_WITH_PAUSE 0
+#endif
+
+// <q> APP_SCHEDULER_WITH_PROFILER  - Enabling scheduler profiling
+ 
+
+#ifndef APP_SCHEDULER_WITH_PROFILER
+#define APP_SCHEDULER_WITH_PROFILER 0
+#endif
+
+// </e>
+
+// <e> APP_TIMER_ENABLED - app_timer - Application timer functionality
+//==========================================================
+#ifndef APP_TIMER_ENABLED
+#define APP_TIMER_ENABLED 1
+#endif
+// <o> APP_TIMER_CONFIG_RTC_FREQUENCY  - Configure RTC prescaler.
+ 
+// <0=> 32768 Hz 
+// <1=> 16384 Hz 
+// <3=> 8192 Hz 
+// <7=> 4096 Hz 
+// <15=> 2048 Hz 
+// <31=> 1024 Hz 
+
+#ifndef APP_TIMER_CONFIG_RTC_FREQUENCY
+#define APP_TIMER_CONFIG_RTC_FREQUENCY 0
+#endif
+
+// <o> APP_TIMER_CONFIG_IRQ_PRIORITY  - Interrupt priority
+ 
+
+// <i> Priorities 0,2 (nRF51) and 0,1,4,5 (nRF52) are reserved for SoftDevice
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef APP_TIMER_CONFIG_IRQ_PRIORITY
+#define APP_TIMER_CONFIG_IRQ_PRIORITY 6
+#endif
+
+// <o> APP_TIMER_CONFIG_OP_QUEUE_SIZE - Capacity of timer requests queue. 
+// <i> Size of the queue depends on how many timers are used
+// <i> in the system, how often timers are started and overall
+// <i> system latency. If queue size is too small app_timer calls
+// <i> will fail.
+
+#ifndef APP_TIMER_CONFIG_OP_QUEUE_SIZE
+#define APP_TIMER_CONFIG_OP_QUEUE_SIZE 10
+#endif
+
+// <q> APP_TIMER_CONFIG_USE_SCHEDULER  - Enable scheduling app_timer events to app_scheduler
+ 
+
+#ifndef APP_TIMER_CONFIG_USE_SCHEDULER
+#define APP_TIMER_CONFIG_USE_SCHEDULER 0
+#endif
+
+// <q> APP_TIMER_KEEPS_RTC_ACTIVE  - Enable RTC always on
+ 
+
+// <i> If option is enabled RTC is kept running even if there is no active timers.
+// <i> This option can be used when app_timer is used for timestamping.
+
+#ifndef APP_TIMER_KEEPS_RTC_ACTIVE
+#define APP_TIMER_KEEPS_RTC_ACTIVE 0
+#endif
+
+// <o> APP_TIMER_SAFE_WINDOW_MS - Maximum possible latency (in milliseconds) of handling app_timer event. 
+// <i> Maximum possible timeout that can be set is reduced by safe window.
+// <i> Example: RTC frequency 16384 Hz, maximum possible timeout 1024 seconds - APP_TIMER_SAFE_WINDOW_MS.
+// <i> Since RTC is not stopped when processor is halted in debugging session, this value
+// <i> must cover it if debugging is needed. It is possible to halt processor for APP_TIMER_SAFE_WINDOW_MS
+// <i> without corrupting app_timer behavior.
+
+#ifndef APP_TIMER_SAFE_WINDOW_MS
+#define APP_TIMER_SAFE_WINDOW_MS 300000
+#endif
+
+// <h> App Timer Legacy configuration - Legacy configuration.
+
+//==========================================================
+// <q> APP_TIMER_WITH_PROFILER  - Enable app_timer profiling
+ 
+
+#ifndef APP_TIMER_WITH_PROFILER
+#define APP_TIMER_WITH_PROFILER 0
+#endif
+
+// <q> APP_TIMER_CONFIG_SWI_NUMBER  - Configure SWI instance used.
+ 
+
+#ifndef APP_TIMER_CONFIG_SWI_NUMBER
+#define APP_TIMER_CONFIG_SWI_NUMBER 0
+#endif
+
+// </h> 
+//==========================================================
+
+// </e>
+
 // <e> NRF_BALLOC_ENABLED - nrf_balloc - Block allocator module
 //==========================================================
 #ifndef NRF_BALLOC_ENABLED
@@ -1030,6 +1804,26 @@
 #ifndef NRF_STRERROR_ENABLED
 #define NRF_STRERROR_ENABLED 1
 #endif
+
+// <h> app_button - buttons handling module
+
+//==========================================================
+// <q> BUTTON_ENABLED  - Enables Button module
+ 
+
+#ifndef BUTTON_ENABLED
+#define BUTTON_ENABLED 1
+#endif
+
+// <q> BUTTON_HIGH_ACCURACY_ENABLED  - Enables GPIOTE high accuracy for buttons
+ 
+
+#ifndef BUTTON_HIGH_ACCURACY_ENABLED
+#define BUTTON_HIGH_ACCURACY_ENABLED 0
+#endif
+
+// </h> 
+//==========================================================
 
 // <h> nrf_fprintf - fprintf function.
 

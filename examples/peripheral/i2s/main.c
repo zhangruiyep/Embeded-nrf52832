@@ -49,8 +49,6 @@
 
 #include <stdio.h>
 #include "nrf_drv_i2s.h"
-#include "nrf_drv_spi.h"
-#include "nrf_gpio.h"
 #include "nrf_delay.h"
 #include "app_util_platform.h"
 #include "app_error.h"
@@ -59,6 +57,9 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+
+#include "sfud.h"
+static sfud_flash *g_sfud_flash = NULL;
 
 #define LED_OK      BSP_BOARD_LED_0
 #define LED_ERROR   BSP_BOARD_LED_1
@@ -231,45 +232,6 @@ void app_error_fault_handler(uint32_t id, uint32_t pc, uint32_t info)
     app_error_save_and_stop(id, pc, info);
 }
 
-
-#define SPI_INSTANCE  0 /**< SPI instance index. */
-static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE);  /**< SPI instance. */
-static volatile bool spi_xfer_done;  /**< Flag used to indicate that SPI instance completed the transfer. */
-
-#define TEST_STRING "Nordic"
-static uint8_t       m_tx_buf[] = TEST_STRING;           /**< TX buffer. */
-static uint8_t       m_rx_buf[sizeof(TEST_STRING) + 1];    /**< RX buffer. */
-static const uint8_t m_length = sizeof(m_tx_buf);        /**< Transfer length. */
-
-/**
- * @brief SPI user event handler.
- * @param event
- */
-void spi_event_handler(nrf_drv_spi_evt_t const * p_event,
-                       void *                    p_context)
-{
-    spi_xfer_done = true;
-    NRF_LOG_INFO("Transfer completed.");
-    if (m_rx_buf[0] != 0)
-    {
-        NRF_LOG_INFO(" Received:");
-        NRF_LOG_HEXDUMP_INFO(m_rx_buf, strlen((const char *)m_rx_buf));
-    }
-}
-
-static void spi_init(void)
-{
-    nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
-    spi_config.ss_pin   = SPI_SS_PIN;
-    spi_config.miso_pin = SPI_MISO_PIN;
-    spi_config.mosi_pin = SPI_MOSI_PIN;
-    spi_config.sck_pin  = SPI_SCK_PIN;
-    APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, spi_event_handler, NULL));
-    
-    NRF_LOG_INFO("SPI example started.");
-}
-                       
-
 int main(void)
 {
     uint32_t err_code = NRF_SUCCESS;
@@ -297,7 +259,22 @@ int main(void)
     err_code = nrf_drv_i2s_init(&config, data_handler);
     APP_ERROR_CHECK(err_code);
 
-    spi_init();
+    if (SFUD_SUCCESS == sfud_init())
+    {
+        sfud_err rc = SFUD_SUCCESS;
+        uint8_t read_buf[16] = {0};
+        
+        /* use global dev for later read/write */
+        g_sfud_flash = sfud_get_device(SFUD_GD25_DEVICE_INDEX);
+        NRF_LOG_INFO("sfud dev init_ok=%d", g_sfud_flash->init_ok);
+
+        /* test function */
+        rc = sfud_erase_write(g_sfud_flash, 0x1000, sizeof(read_buf), "0123456789ABCDEF");
+        NRF_LOG_INFO("sfud write test rc=%d", rc);
+        rc = sfud_read(g_sfud_flash, 0x1000, sizeof(read_buf), read_buf);
+        NRF_LOG_INFO("sfud read test rc=%d", rc);
+        NRF_LOG_HEXDUMP_INFO(read_buf, sizeof(read_buf));
+    }
 
     for (;;)
     {

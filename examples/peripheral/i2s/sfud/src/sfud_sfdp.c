@@ -120,6 +120,7 @@ static bool read_sfdp_header(sfud_flash *flash) {
           header[2] == 'D' &&
           header[3] == 'P')) {
         SFUD_DEBUG("Error: Check SFDP signature error. It's must be 50444653h('S' 'F' 'D' 'P').");
+        SFUD_DEBUG("read SFDP header is 0x02x 0x02x 0x02x 0x02x.", header[0], header[1], header[2], header[3]);
         return false;
     }
     sfdp->minor_rev = header[4];

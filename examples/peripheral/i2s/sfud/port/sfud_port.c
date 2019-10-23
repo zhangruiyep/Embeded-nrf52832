@@ -73,16 +73,27 @@ static void spi_init(void)
     spi_config.miso_pin = SPI_MISO_PIN;
     spi_config.mosi_pin = SPI_MOSI_PIN;
     spi_config.sck_pin  = SPI_SCK_PIN;
+    /* flash support mode0 and mode3 */
+    spi_config.mode = NRF_DRV_SPI_MODE_3;
     APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, spi_event_handler, NULL));
     
     NRF_LOG_INFO("SPI example started.");
 }
 
-void spi_delay(void)
+static void spi_delay(void)
 {
     nrf_delay_ms(1);
     return;
 }
+
+static void spi_lock(const sfud_spi *spi) {
+    __disable_irq();
+}
+
+static void spi_unlock(const sfud_spi *spi) {
+    __enable_irq();
+}
+
 /* NORDIC SPI end */
 
 /**
@@ -108,7 +119,7 @@ static sfud_err spi_write_read(const sfud_spi *spi, const uint8_t *write_buf, si
     }
 
     /* RX debug. TODO: disable it */
-    if (read_buf[0] != 0)
+    //if (read_buf[0] != 0)
     {
         NRF_LOG_INFO(" Received:");
         NRF_LOG_HEXDUMP_INFO(read_buf, read_size);
@@ -159,6 +170,8 @@ sfud_err sfud_spi_port_init(sfud_flash *flash) {
 #ifdef SFUD_USING_QSPI
             flash->spi.qspi_read = qspi_read;
 #endif
+            flash->spi.lock = spi_lock;
+            flash->spi.unlock = spi_unlock;
             /* use user_data to save nrf_drv_spi_t info */
             flash->spi.user_data = (void *)&spi;
             flash->retry.delay = spi_delay;

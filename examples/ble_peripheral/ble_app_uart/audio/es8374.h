@@ -204,6 +204,7 @@ typedef enum {
     LCLK_DIV_1536 = 10,
     LCLK_DIV_2112 = 11,
     LCLK_DIV_2304 = 12,
+    LCLK_DIV_96 = 13,
 
     LCLK_DIV_125 = 16,
     LCLK_DIV_136 = 17,

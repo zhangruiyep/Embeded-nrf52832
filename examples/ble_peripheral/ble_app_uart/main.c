@@ -734,18 +734,18 @@ int main(void)
     }
 
     {
-        audio_hal_codec_config_t cfg;
-        cfg.adc_input = AUDIO_HAL_ADC_INPUT_ALL;
-        cfg.dac_output = AUDIO_HAL_DAC_OUTPUT_ALL;
-        cfg.codec_mode = AUDIO_HAL_CODEC_MODE_DECODE;
-        cfg.i2s_iface.mode = AUDIO_HAL_MODE_MASTER;
-        cfg.i2s_iface.fmt = AUDIO_HAL_I2S_NORMAL;
-        cfg.i2s_iface.samples = AUDIO_HAL_48K_SAMPLES;
-        cfg.i2s_iface.bits = AUDIO_HAL_BIT_LENGTH_32BITS;
-
+        extern void i2s_test(void);
+        
         int rc = 0;
         rc = es8374_codec_init();
         NRF_LOG_INFO("es8374_codec_init return %d", rc);
+
+        rc = es8374_start(ES_MODULE_DAC);
+        NRF_LOG_INFO("es8374_start return %d", rc);
+        i2s_test();
+        rc = es8374_stop(ES_MODULE_DAC);
+        NRF_LOG_INFO("es8374_stop return %d", rc);
+        
     }
 
     // Start execution.

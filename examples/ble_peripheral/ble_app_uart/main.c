@@ -83,6 +83,8 @@
 #include "sfud.h"
 static sfud_flash *g_sfud_flash = NULL;
 
+#include "es8374.h"
+
 #define APP_BLE_CONN_CFG_TAG            1                                           /**< A tag identifying the SoftDevice BLE configuration. */
 
 #define DEVICE_NAME                     "Nordic_UART"                               /**< Name of device. Will be included in the advertising data. */
@@ -729,6 +731,21 @@ int main(void)
         rc = sfud_read(g_sfud_flash, 0x1000, sizeof(read_buf), read_buf);
         NRF_LOG_INFO("sfud read test rc=%d", rc);
         NRF_LOG_HEXDUMP_INFO(read_buf, sizeof(read_buf));
+    }
+
+    {
+        audio_hal_codec_config_t cfg;
+        cfg.adc_input = AUDIO_HAL_ADC_INPUT_ALL;
+        cfg.dac_output = AUDIO_HAL_DAC_OUTPUT_ALL;
+        cfg.codec_mode = AUDIO_HAL_CODEC_MODE_DECODE;
+        cfg.i2s_iface.mode = AUDIO_HAL_MODE_MASTER;
+        cfg.i2s_iface.fmt = AUDIO_HAL_I2S_NORMAL;
+        cfg.i2s_iface.samples = AUDIO_HAL_48K_SAMPLES;
+        cfg.i2s_iface.bits = AUDIO_HAL_BIT_LENGTH_32BITS;
+
+        int rc = 0;
+        rc = es8374_codec_init();
+        NRF_LOG_INFO("es8374_codec_init return %d", rc);
     }
 
     // Start execution.

@@ -427,7 +427,7 @@
                   <MiscControls></MiscControls>
                   <Define></Define>
                   <Undefine></Undefine>
-                  <IncludePath>..\..\..\sfud\inc</IncludePath>
+                  <IncludePath>..\..\..\sfud\inc;..\..\..\audio</IncludePath>
                 </VariousControls>
               </Cads>
               <Aads>
@@ -475,6 +475,11 @@
               <FileName>sfud_sfdp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\sfud\src\sfud_sfdp.c</FilePath>
+            </File>
+            <File>
+              <FileName>es8374.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\audio\es8374.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1696,6 +1701,21 @@
               <FileName>nrfx_spim.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_spim.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_twi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\integration\nrfx\legacy\nrf_drv_twi.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_twim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_twim.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_twi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_twi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4031,6 +4051,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\sfud\src\sfud_sfdp.c</FilePath>
             </File>
+            <File>
+              <FileName>es8374.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\audio\es8374.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -5251,6 +5276,21 @@
               <FileName>nrfx_spim.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_spim.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf_drv_twi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\integration\nrfx\legacy\nrf_drv_twi.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_twim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_twim.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrfx_twi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_twi.c</FilePath>
             </File>
           </Files>
         </Group>

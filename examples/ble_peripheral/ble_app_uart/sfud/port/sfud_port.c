@@ -73,8 +73,6 @@ static void spi_init(void)
     spi_config.miso_pin = SPI_MISO_PIN;
     spi_config.mosi_pin = SPI_MOSI_PIN;
     spi_config.sck_pin  = SPI_SCK_PIN;
-    /* flash support mode0 and mode3 */
-    spi_config.mode = NRF_DRV_SPI_MODE_3;
     APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, spi_event_handler, NULL));
     
     NRF_LOG_INFO("SPI example started.");
@@ -102,21 +100,32 @@ static void spi_unlock(const sfud_spi *spi) {
 static sfud_err spi_write_read(const sfud_spi *spi, const uint8_t *write_buf, size_t write_size, uint8_t *read_buf,
         size_t read_size) {
     sfud_err result = SFUD_SUCCESS;
-    //uint8_t send_data, read_data;
+    uint8_t *rx_data = NULL;  // save spi rx data
+    size_t rx_buf_size = write_size + read_size;
 
     /**
      * add your spi write and read code
      */
+    rx_data = (uint8_t *)malloc(rx_buf_size);
+    if (rx_data == NULL)
+    {
+        NRF_LOG_ERROR("NO MEM for spi_write_read");
+        return SFUD_ERR_WRITE;
+    }
+    memset(rx_data, 0, rx_buf_size);
     // Reset rx buffer and transfer done flag
     memset(read_buf, 0, read_size);
     spi_xfer_done = false;
     
-    APP_ERROR_CHECK(nrf_drv_spi_transfer(spi->user_data, write_buf, write_size, read_buf, read_size));
+    APP_ERROR_CHECK(nrf_drv_spi_transfer(spi->user_data, write_buf, write_size, rx_data, rx_buf_size));
     
     while (!spi_xfer_done)
     {
         __WFE();
     }
+
+    /* copy rx to user */
+    memcpy(read_buf, rx_data + write_size, read_size);
 
     /* RX debug. TODO: disable it */
     //if (read_buf[0] != 0)
@@ -124,6 +133,8 @@ static sfud_err spi_write_read(const sfud_spi *spi, const uint8_t *write_buf, si
         NRF_LOG_INFO(" Received:");
         NRF_LOG_HEXDUMP_INFO(read_buf, read_size);
     }
+
+    free(rx_data);
 
     return result;
 }

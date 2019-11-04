@@ -205,6 +205,7 @@ typedef enum {
     LCLK_DIV_2112 = 11,
     LCLK_DIV_2304 = 12,
     LCLK_DIV_96 = 13,
+    LCLK_DIV_48 = 14,
 
     LCLK_DIV_125 = 16,
     LCLK_DIV_136 = 17,
@@ -299,7 +300,7 @@ typedef struct {
 /* esxxx_common.h end */
 
 /* ES8374 address */
-#define ES8374_ADDR 0x20  // 0x22:CE=1;0x20:CE=0
+#define ES8374_ADDR (0x20>>1)  // 0x22:CE=1;0x20:CE=0
 
 /* ES8374 init config */
 #define ES8374_MODULE_DEFAULT   ES_MODULE_DAC

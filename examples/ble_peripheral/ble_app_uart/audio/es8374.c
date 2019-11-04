@@ -256,10 +256,12 @@ static ret_code_t i2s_init(void)
 
     config.mode      = NRF_I2S_MODE_MASTER;
     config.format    = NRF_I2S_FORMAT_I2S;
-    config.sample_width = NRF_I2S_SWIDTH_16BIT;
-    config.mck_setup = NRF_I2S_MCK_32MDIV21;
-    config.ratio     = NRF_I2S_RATIO_96X;
-    config.channels  = NRF_I2S_CHANNELS_STEREO;
+    config.sample_width = NRF_I2S_SWIDTH_16BIT; //采样宽度16bit
+    config.mck_setup = NRF_I2S_MCK_32MDIV15;    //MCK=2.13333 MHz
+    config.ratio     = NRF_I2S_RATIO_48X;       //采样率=44.44444 KHz
+    config.channels  = NRF_I2S_CHANNELS_STEREO; //双声道
+    /* 偏差率=44.444/44.1-1=0.78%*/
+    /* 比特率=44.1K*16bit*2(双声道)=1411.2kbps */
     err_code = nrf_drv_i2s_init(&config, i2s_data_handler);
     APP_ERROR_CHECK(err_code);
 
@@ -433,7 +435,7 @@ esp_err_t es8374_read_reg(uint8_t regAdd, uint8_t *regv)
 
     /* write reg address */
     m_xfer_done = false;
-    err_code = nrf_drv_twi_tx(&m_twi, ES8374_ADDR, reg, sizeof(reg), false);
+    err_code = nrf_drv_twi_tx(&m_twi, ES8374_ADDR, reg, sizeof(reg), true);
     APP_ERROR_CHECK(err_code);
     while (m_xfer_done == false);
 
@@ -441,6 +443,7 @@ esp_err_t es8374_read_reg(uint8_t regAdd, uint8_t *regv)
     m_xfer_done = false;
     err_code = nrf_drv_twi_rx(&m_twi, ES8374_ADDR, regv, sizeof(*regv));
     APP_ERROR_CHECK(err_code);
+    while (m_xfer_done == false);
 
     NRF_LOG_INFO("ES8374 I2C read %02x from addr %02x", *regv, regAdd);
 
@@ -803,6 +806,10 @@ int es8374_i2s_config_clock(es_i2s_clock_t cfg)
             dacratio_l = 96 % 256;
             dacratio_h = 96 / 256;
             break;        
+        case LCLK_DIV_48:
+            dacratio_l = 48 % 256;
+            dacratio_h = 48 / 256;
+            break;        
         case LCLK_DIV_125:
             dacratio_l = 125 % 256;
             dacratio_h = 125 / 256;
@@ -1071,7 +1078,7 @@ int es8374_codec_init(void)
     int res = 0;
     es_i2s_clock_t clkdiv;
 
-    clkdiv.lclk_div = LCLK_DIV_96;
+    clkdiv.lclk_div = LCLK_DIV_48;
     //SCK = 2 * LRCK * CONFIG.SWIDTH 
     clkdiv.sclk_div = MCLK_DIV_3;
 

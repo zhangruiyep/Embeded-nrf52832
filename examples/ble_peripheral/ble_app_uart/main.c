@@ -81,7 +81,7 @@
 #include "nrf_log_default_backends.h"
 
 #include "sfud.h"
-static sfud_flash *g_sfud_flash = NULL;
+sfud_flash *g_sfud_flash = NULL;
 
 #include "es8374.h"
 

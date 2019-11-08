@@ -26,6 +26,7 @@
 //#include "esp_log.h"
 //#include "driver/i2c.h"
 #include "es8374.h"
+#include "sfud.h"
 //#include "board_pins_config.h"
 
 /* nrf52832 port begin */
@@ -97,8 +98,20 @@ static bool             m_error_encountered;
 static uint32_t       * volatile mp_block_to_fill  = NULL;
 static uint32_t const * volatile mp_block_to_check = NULL;
 
+static uint32_t file_addr = 0;
+static uint32_t volatile file_offset = 0;
+static int32_t volatile file_size = 64*1024;
+extern sfud_flash *g_sfud_flash;
+
 static void prepare_tx_data(uint32_t * p_block)
 {
+	/* read from file and fill */
+	sfud_read(g_sfud_flash, file_addr+file_offset, I2S_DATA_BLOCK_WORDS, (uint8_t *)p_block);
+	file_offset += I2S_DATA_BLOCK_WORDS;
+	file_size -= I2S_DATA_BLOCK_WORDS;
+	NRF_LOG_INFO("file_addr=%x file_size=%x", file_offset, file_size);
+	NRF_LOG_INFO("data=%x", *p_block);
+#if 0
     // These variables will be both zero only at the very beginning of each
     // transfer, so we use them as the indication that the re-initialization
     // should be performed.
@@ -124,6 +137,7 @@ static void prepare_tx_data(uint32_t * p_block)
         ((uint16_t *)p_word)[0] = sample_l;
         ((uint16_t *)p_word)[1] = sample_r;
     }
+#endif
 }
 
 
@@ -208,6 +222,7 @@ static void i2s_data_handler(nrf_drv_i2s_buffers_t const * p_released,
         return;
     }
 
+#if 0
     // First call of this handler occurs right after the transfer is started.
     // No data has been transferred yet at this point, so there is nothing to
     // check. Only the buffers for the next part of the transfer should be
@@ -234,6 +249,26 @@ static void i2s_data_handler(nrf_drv_i2s_buffers_t const * p_released,
         // modify the content it is pointing to (it is marked in the structure
         // as pointing to constant data because the driver is not supposed to
         // modify the provided data).
+        mp_block_to_fill = (uint32_t *)p_released->p_tx_buffer;
+    }
+#endif
+    /* we do not care rx, only check tx */
+    if (!p_released->p_tx_buffer)
+    {
+        NRF_LOG_INFO("first pkt");
+        nrf_drv_i2s_buffers_t const next_buffers = {
+            .p_rx_buffer = NULL,
+            .p_tx_buffer = m_buffer_tx[1],
+            
+        };
+        APP_ERROR_CHECK(nrf_drv_i2s_next_buffers_set(&next_buffers));
+
+        mp_block_to_fill = m_buffer_tx[1];        
+    }
+    else
+    {
+        NRF_LOG_INFO("not first pkt");
+        APP_ERROR_CHECK(nrf_drv_i2s_next_buffers_set(p_released));
         mp_block_to_fill = (uint32_t *)p_released->p_tx_buffer;
     }
 }
@@ -271,16 +306,13 @@ static ret_code_t i2s_init(void)
 void i2s_test(void)
 {
     ret_code_t err_code;
-
-    m_blocks_transferred = 0;
-    mp_block_to_fill  = NULL;
-    mp_block_to_check = NULL;
-
+#if 1
     prepare_tx_data(m_buffer_tx[0]);
 
     nrf_drv_i2s_buffers_t const initial_buffers = {
         .p_tx_buffer = m_buffer_tx[0],
-        .p_rx_buffer = m_buffer_rx[0],
+        //.p_rx_buffer = m_buffer_rx[0],
+        .p_rx_buffer = NULL,
     };
     err_code = nrf_drv_i2s_start(&initial_buffers, I2S_DATA_BLOCK_WORDS, 0);
     APP_ERROR_CHECK(err_code);
@@ -297,12 +329,9 @@ void i2s_test(void)
             prepare_tx_data(mp_block_to_fill);
             mp_block_to_fill = NULL;
         }
-        if (mp_block_to_check)
-        {
-            check_rx_data(mp_block_to_check);
-            mp_block_to_check = NULL;
-        }
-    } while (m_blocks_transferred < BLOCKS_TO_TRANSFER);
+
+    } while (file_size > 0);
+#endif
 
     nrf_drv_i2s_stop();
 }
@@ -421,6 +450,7 @@ esp_err_t es8374_write_reg(uint8_t regAdd, uint8_t data)
     ret_code_t err_code;
 
     uint8_t reg[2] = {regAdd, data};
+	m_xfer_done = false;
     err_code = nrf_drv_twi_tx(&m_twi, ES8374_ADDR, reg, sizeof(reg), false);
     APP_ERROR_CHECK(err_code);
     while (m_xfer_done == false);

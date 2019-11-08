@@ -88,7 +88,7 @@
 // <4294967295=> Not connected 
 
 #ifndef I2S_SCK_PIN
-#define I2S_SCK_PIN 17
+#define I2S_SCK_PIN 14
 #endif
 
 //==========================================================
@@ -129,7 +129,7 @@
 // <4294967295=> Not connected 
 
 #ifndef I2S_LRCK_PIN
-#define I2S_LRCK_PIN 18
+#define I2S_LRCK_PIN 15
 #endif
 
 //==========================================================
@@ -170,7 +170,7 @@
 // <4294967295=> Not connected 
 
 #ifndef I2S_MCK_PIN
-#define I2S_MCK_PIN 19
+#define I2S_MCK_PIN 16
 #endif
 
 //==========================================================
@@ -211,7 +211,7 @@
 // <4294967295=> Not connected 
 
 #ifndef I2S_SDIN_PIN
-#define I2S_SDIN_PIN 13
+#define I2S_SDIN_PIN -1
 #endif
 
 // <o> I2S_SDOUT_PIN  - Pin number
@@ -251,7 +251,7 @@
 // <4294967295=> Not connected 
 
 #ifndef I2S_SDOUT_PIN
-#define I2S_SDOUT_PIN -1
+#define I2S_SDOUT_PIN 13
 #endif
 
 // </h> 

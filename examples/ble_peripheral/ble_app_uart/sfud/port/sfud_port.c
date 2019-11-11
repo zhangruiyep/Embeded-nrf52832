@@ -92,6 +92,45 @@ static void spi_unlock(const sfud_spi *spi) {
     __enable_irq();
 }
 
+/* api to support len > 255 */
+static void spi_xfer(nrf_drv_spi_t const * const p_instance,
+                                uint8_t const * p_tx_buffer,
+                                size_t         tx_buffer_length,
+                                uint8_t       * p_rx_buffer,
+                                size_t         rx_buffer_length)
+{
+    const uint8_t *tx   = p_tx_buffer;
+    uint8_t *rx         = p_rx_buffer;
+    uint8_t tx_len      = 0;
+    uint8_t rx_len      = 0;
+    size_t tx_remain    = tx_buffer_length;
+    size_t rx_remain    = rx_buffer_length;
+
+    /* nrf spi xfer max buf size is uint8_t, max 255 */
+#define SPI_XFER_BUF_LEN_MAX 255
+    do {
+        tx_len = MIN(tx_remain, SPI_XFER_BUF_LEN_MAX);
+        rx_len = MIN(rx_remain, SPI_XFER_BUF_LEN_MAX);
+        if (tx_len == 0)
+        {
+            tx = NULL;
+        }
+        // Reset rx buffer and transfer done flag
+        spi_xfer_done = false;
+        APP_ERROR_CHECK(nrf_drv_spi_transfer(p_instance, tx, tx_len, rx, rx_len));
+        while (!spi_xfer_done)
+        {
+            __WFE();
+        }
+
+        tx_remain -= tx_len;
+        rx_remain -= rx_len;
+        tx += tx_len;
+        rx += rx_len;
+    } while (rx_remain > 0);
+    
+}
+
 /* NORDIC SPI end */
 
 /**
@@ -113,23 +152,14 @@ static sfud_err spi_write_read(const sfud_spi *spi, const uint8_t *write_buf, si
         return SFUD_ERR_WRITE;
     }
     memset(rx_data, 0, rx_buf_size);
-    // Reset rx buffer and transfer done flag
-    memset(read_buf, 0, read_size);
-    spi_xfer_done = false;
-    
-    APP_ERROR_CHECK(nrf_drv_spi_transfer(spi->user_data, write_buf, write_size, rx_data, rx_buf_size));
-    
-    while (!spi_xfer_done)
-    {
-        __WFE();
-    }
 
+    spi_xfer(spi->user_data, write_buf, write_size, rx_data, rx_buf_size);
+    
     /* copy rx to user */
-    memcpy(read_buf, rx_data + write_size, read_size);
-
-    /* RX debug. TODO: disable it */
-    //if (read_buf[0] != 0)
+    if (read_buf && (read_size > 0))
     {
+        memcpy(read_buf, rx_data + write_size, read_size);
+        /* RX debug. TODO: disable it */
         NRF_LOG_INFO(" Received:");
         NRF_LOG_HEXDUMP_INFO(read_buf, read_size);
     }

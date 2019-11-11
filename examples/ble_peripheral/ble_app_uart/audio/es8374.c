@@ -98,19 +98,20 @@ static bool             m_error_encountered;
 static uint32_t       * volatile mp_block_to_fill  = NULL;
 static uint32_t const * volatile mp_block_to_check = NULL;
 
-static uint32_t file_addr = 0;
+static uint32_t file_addr = 0x180000;
 static uint32_t volatile file_offset = 0;
-static int32_t volatile file_size = 64*1024;
+static int32_t volatile file_size = 128*1024;
 extern sfud_flash *g_sfud_flash;
 
 static void prepare_tx_data(uint32_t * p_block)
 {
 	/* read from file and fill */
-	sfud_read(g_sfud_flash, file_addr+file_offset, I2S_DATA_BLOCK_WORDS, (uint8_t *)p_block);
+	sfud_err rc;
+	rc = sfud_read(g_sfud_flash, file_addr+file_offset, I2S_DATA_BLOCK_WORDS, (uint8_t *)p_block);
 	file_offset += I2S_DATA_BLOCK_WORDS;
 	file_size -= I2S_DATA_BLOCK_WORDS;
-	NRF_LOG_INFO("file_addr=%x file_size=%x", file_offset, file_size);
-	NRF_LOG_INFO("data=%x", *p_block);
+	NRF_LOG_INFO("file_addr=%x file_size=%x", file_addr+file_offset, file_size);
+	NRF_LOG_INFO("rc=%d data=%x %x", rc, p_block[0], p_block[1]);
 #if 0
     // These variables will be both zero only at the very beginning of each
     // transfer, so we use them as the indication that the re-initialization

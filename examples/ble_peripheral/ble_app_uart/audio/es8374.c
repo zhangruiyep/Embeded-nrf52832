@@ -27,6 +27,7 @@
 //#include "driver/i2c.h"
 #include "es8374.h"
 #include "sfud.h"
+#include "wav_fmt.h"
 //#include "board_pins_config.h"
 
 /* nrf52832 port begin */
@@ -80,7 +81,7 @@ void twi_handler(nrf_drv_twi_evt_t const * p_event, void * p_context)
 }
 
 #define I2S_DATA_BLOCK_WORDS    512
-static uint32_t m_buffer_rx[2][I2S_DATA_BLOCK_WORDS];
+//static uint32_t m_buffer_rx[2][I2S_DATA_BLOCK_WORDS];
 static uint32_t m_buffer_tx[2][I2S_DATA_BLOCK_WORDS];
 
 // Delay time between consecutive I2S transfers performed in the main loop
@@ -90,27 +91,36 @@ static uint32_t m_buffer_tx[2][I2S_DATA_BLOCK_WORDS];
 #define BLOCKS_TO_TRANSFER  20
 
 static uint8_t volatile m_blocks_transferred     = 0;
-static uint8_t          m_zero_samples_to_ignore = 0;
-static uint16_t         m_sample_value_to_send;
-static uint16_t         m_sample_value_expected;
-static bool             m_error_encountered;
+//static uint8_t          m_zero_samples_to_ignore = 0;
+//static uint16_t         m_sample_value_to_send;
+//static uint16_t         m_sample_value_expected;
+//static bool             m_error_encountered;
 
 static uint32_t       * volatile mp_block_to_fill  = NULL;
 static uint32_t const * volatile mp_block_to_check = NULL;
 
 static uint32_t file_addr = 0x180000;
 static uint32_t volatile file_offset = 0;
-static int32_t volatile file_size = 128*1024;
+//static int32_t volatile file_size = 128*1024;
+static uint32_t volatile pcm_addr = 0;
+static int32_t volatile pcm_len = 0;
 extern sfud_flash *g_sfud_flash;
+
+#define PCM_TX_DONE (pcm_len <= 0)
 
 static void prepare_tx_data(uint32_t * p_block)
 {
 	/* read from file and fill */
 	sfud_err rc;
-	rc = sfud_read(g_sfud_flash, file_addr+file_offset, I2S_DATA_BLOCK_WORDS, (uint8_t *)p_block);
+    if (pcm_addr == 0)
+    {
+        /* init addr & len */
+        get_pcm_data_from_file(file_addr, &pcm_addr, &pcm_len);
+    }
+	rc = sfud_read(g_sfud_flash, pcm_addr+file_offset, I2S_DATA_BLOCK_WORDS, (uint8_t *)p_block);
 	file_offset += I2S_DATA_BLOCK_WORDS;
-	file_size -= I2S_DATA_BLOCK_WORDS;
-	NRF_LOG_INFO("file_addr=%x file_size=%x", file_addr+file_offset, file_size);
+	pcm_len -= I2S_DATA_BLOCK_WORDS;
+	NRF_LOG_INFO("file_addr=%x file_size=%x", pcm_addr+file_offset, pcm_len);
 	NRF_LOG_INFO("rc=%d data=%x %x", rc, p_block[0], p_block[1]);
 #if 0
     // These variables will be both zero only at the very beginning of each
@@ -141,7 +151,7 @@ static void prepare_tx_data(uint32_t * p_block)
 #endif
 }
 
-
+#if 0
 static bool check_samples(uint32_t const * p_block)
 {
     // [each data word contains two 16-bit samples]
@@ -183,8 +193,9 @@ static bool check_samples(uint32_t const * p_block)
     NRF_LOG_INFO("%3u: OK", m_blocks_transferred);
     return true;
 }
+#endif
 
-
+#if 0
 static void check_rx_data(uint32_t const * p_block)
 {
     ++m_blocks_transferred;
@@ -206,6 +217,7 @@ static void check_rx_data(uint32_t const * p_block)
         //bsp_board_led_invert(LED_OK);
     }
 }
+#endif
 
 static void i2s_data_handler(nrf_drv_i2s_buffers_t const * p_released,
         uint32_t                      status)

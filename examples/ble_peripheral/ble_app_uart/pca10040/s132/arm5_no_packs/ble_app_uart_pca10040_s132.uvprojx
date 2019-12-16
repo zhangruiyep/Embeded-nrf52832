@@ -481,6 +481,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\audio\es8374.c</FilePath>
             </File>
+            <File>
+              <FileName>wav_fmt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\audio\wav_fmt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4060,6 +4065,11 @@
               <FileName>es8374.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\audio\es8374.c</FilePath>
+            </File>
+            <File>
+              <FileName>wav_fmt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\audio\wav_fmt.c</FilePath>
             </File>
           </Files>
         </Group>
